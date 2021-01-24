@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto - Учебный проект Скрипникова Александра ЯПрактикум</title>
+</head>
+<body>
+  <div class="root">
+    
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+    </header>
+    
+    <main class="content">
+
+      <section class="profile">
+          <img class="profile__avatar" src="./images/avatar.jpg" alt="Логотип">
+          <div class="profile__titleBox">
+            <h1 class="profile__title">Все наладится</h1>
+            <div class="profile__editButton"></div>
+            <p class="profile__subtitle">Страничка доковидных воспоминаний</p>
+          </div>
+          <div class="profile__addButton"></div>        
+      </section>
+
+      <section class="elements">
+        <div class="elements__element">
+          <img class="elements__piture" src="./images/ravello.jpg" alt="Амальфи Италия">
+          <div class="elements__nameBox">
+            <h2 class="elements__placeName">Амальфи Амальфи</h2>
+            <div class="elements__like"></div>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__piture" src="./images/barselona.jpg" alt="Барселона Испания">
+          <div class="elements__nameBox">
+            <h2 class="elements__placeName">Барселона</h2>
+            <div class="elements__like"></div>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__piture" src="./images/crete.jpg" alt="Крит Греция">
+          <div class="elements__nameBox">
+            <h2 class="elements__placeName">Крит</h2>
+            <div class="elements__like"></div>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__piture" src="./images/moscow.jpg" alt="Москва Россия">
+          <div class="elements__nameBox">
+            <h2 class="elements__placeName">Москва</h2>
+            <div class="elements__like"></div>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__piture" src="./images/talin.jpg" alt="Таллин Эстония">
+          <div class="elements__nameBox">
+            <h2 class="elements__placeName">Таллин</h2>
+            <div class="elements__like"></div>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__piture" src="./images/tartu.jpg" alt="Тарту Эстония">
+          <div class="elements__nameBox">
+            <h2 class="elements__placeName">Тарту</h2>
+            <div class="elements__like"></div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="footer__copyright">&copy; 2021 Alex Skripnikov</div>
+    </footer>
+
+    <section class="overlay">
+      <div class="popup">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <form class="popup__form">
+          <input type="text" class="popup__input popup__nameInput" value="Все наладится">
+          <input type="text" class="popup__input popup__jobInput" value="Страничка доковидных воспоминаний">
+          <button type="submit" class="popup__saveButton">Сохранить</button>
+        </form>
+        <div class="popup__closeButton"></div>
+      </div>
+    </section>
+    
+  </div>
+
+<script src="./script/script.js"></script>
+
+</body>
+</html>

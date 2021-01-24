@@ -1,0 +1,13 @@
+.profile__titleBox {
+  display: grid;
+  grid-template-areas:
+  "title editButton"
+  "subtitle subtitle";
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 890px) {
+  .profile__titleBox {
+    margin: 0 19px;
+  }
+}

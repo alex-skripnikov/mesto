@@ -1,0 +1,6 @@
+.elements__nameBox {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 20px 31px;
+  align-items: flex-end;
+}
