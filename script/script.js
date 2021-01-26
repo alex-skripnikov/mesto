@@ -30,26 +30,7 @@ function formSubmitHandler (evt) {
     closepopup();
 }
 
-
 //слушатели
 openEditButton.addEventListener('click', openpopup);
 closeEditButton.addEventListener('click', closepopup);
 formElement.addEventListener('submit', formSubmitHandler);
-/*
-
-
-function togglepopup() {
-    overlay.classList.toggle('overlay_active')
-}
-
-openEditButton.addEventListener('click', togglepopup);
-closeEditButton.addEventListener('click', togglepopup);
-
-let formElement = overlay.querySelector('.popup__form');
-let nameInput = formElement.querySelector('.popup__nameInput');
-let jobInput = formElement.querySelector('.popup__jobInput');
-
-
-
-
-*/
