@@ -8,9 +8,27 @@
   border: 1px solid #FFF;
   grid-area: editButton;
   transition: opacity 0.2s linear 0s;
+  box-sizing: border-box;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  border-radius: 0px;
 }
 
 .profile__editButton:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+.profile__editButton:focus {
+  outline: none;
+  }
+
+@media screen and (max-width: 320px) {
+  .profile__editButton {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+  }
 }

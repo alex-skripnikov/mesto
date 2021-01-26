@@ -4,6 +4,7 @@
   "title editButton"
   "subtitle subtitle";
   margin-right: 20px;
+  align-items: baseline;
 }
 
 @media screen and (max-width: 890px) {

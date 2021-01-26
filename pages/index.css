@@ -12,11 +12,11 @@
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__addButton/profile__addButton.css);
 @import url(../blocks/elements/elements.css);
-@import url(../blocks/elements/__element/elements__element.css);
-@import url(../blocks/elements/__piture/elements__piture.css);
-@import url(../blocks/elements/__nameBox/elements__nameBox.css);
-@import url(../blocks/elements/__placeName/elements__placeName.css);
-@import url(../blocks/elements/__like/elements__like.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__piture/element__piture.css);
+@import url(../blocks/element/__nameBox/element__nameBox.css);
+@import url(../blocks/element/__placeName/element__placeName.css);
+@import url(../blocks/element/__like/element__like.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/overlay/overlay.css);

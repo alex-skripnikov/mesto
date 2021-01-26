@@ -1,13 +1,22 @@
-.elements__like {
+.element__like {
   background-image: url(../../../images/like.svg);
   background-repeat: no-repeat;
   background-position: center center;
   width: 22px;
   height: 19px;
   transition: opacity 0.2s linear 0s;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
 }
 
-.elements__like:hover {
+.element__like:hover {
   cursor: pointer;
   opacity: 0.5;
 }
+
+.element__like:focus {
+  outline: none;
+  }
