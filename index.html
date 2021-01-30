@@ -26,48 +26,16 @@
       </section>
 
       <section class="elements">
-        <article class="element">
-          <img class="element__piture" src="./images/ravello.jpg" alt="Амальфи Италия">
-          <div class="element__nameBox">
-            <h2 class="element__placeName">Амальфи Амальфи</h2>
-            <button class="element__like" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__piture" src="./images/barselona.jpg" alt="Барселона Испания">
-          <div class="element__nameBox">
-            <h2 class="element__placeName">Барселона</h2>
-            <button class="element__like" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__piture" src="./images/crete.jpg" alt="Крит Греция">
-          <div class="element__nameBox">
-            <h2 class="element__placeName">Крит</h2>
-            <button class="element__like" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__piture" src="./images/moscow.jpg" alt="Москва Россия">
-          <div class="element__nameBox">
-            <h2 class="element__placeName">Москва</h2>
-            <button class="element__like" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__piture" src="./images/talin.jpg" alt="Таллин Эстония">
-          <div class="element__nameBox">
-            <h2 class="element__placeName">Таллин</h2>
-            <button class="element__like" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__piture" src="./images/tartu.jpg" alt="Тарту Эстония">
-          <div class="element__nameBox">
-            <h2 class="element__placeName">Тарту</h2>
-            <button class="element__like" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
+        <template class="elements__articleTemplate">
+          <article class="element">
+            <img class="element__piture" alt="Картинка статьи">
+            <button class="element__deleteButton" type="button" aria-label="Удалить"></button>
+            <div class="element__nameBox">
+              <h2 class="element__placeName"></h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </article>
+        </template>
 
       </section>
 
@@ -77,7 +45,7 @@
       <p class="footer__copyright">&copy; 2021 Alex Skripnikov</p>
     </footer>
 
-    <section class="overlay">
+    <section class="overlay overlay_type_edit">
       <div class="popup">
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form" name="editProfile">
@@ -86,6 +54,26 @@
           <button type="submit" class="popup__saveButton">Сохранить</button>
         </form>
         <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
+      </div>
+    </section>
+
+    <section class="overlay overlay_type_addPlace">
+      <div class="popup">
+        <h3 class="popup__title">Новое место</h3>
+        <form class="popup__form" name="addNewPlace">
+          <input type="text" name="namePlace" class="popup__input popup__input_value_namePlace" placeholder="Название" value="">
+          <input type="text" name="imgPlace" class="popup__input popup__input_value_imgPlace" placeholder="Ссылка на картинку" value="">
+          <button type="submit" class="popup__saveButton">Создать</button>
+        </form>
+        <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
+      </div>
+    </section>
+
+    <section class="overlay overlay_type_image">
+      <div class="popup popup_type_picture">
+        <img class="popup__piture" alt="Картинка статьи">
+        <p class="popup__pitureName"></p>
+        <button class="popup__closeButton popup__closeButton_type_picture" type="button" aria-label="Закрыть"></button>
       </div>
     </section>
     
