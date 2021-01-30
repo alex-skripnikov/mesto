@@ -23,7 +23,6 @@ const closePictureButton = overlayPictureBox.querySelector('.popup__closeButton'
 const elementsBox = document.querySelector('.elements'); //общий контейнер для мест, сюда добавляем места функцией addplace
 const placeTemplate = elementsBox.querySelector('.elements__articleTemplate').content; //шаблон для мест используем в функции addplace
 
-
 //массив с базовыми местами
 const initialCards = [
     {
@@ -50,19 +49,25 @@ const initialCards = [
       name: 'Тарту',
       link: './images/tartu.jpg'
     }
-  ];
+];
 
-//функция добавляние карточки места
-function addplace(name, link) {
+//функция создания элемента нового места
+function getCardElement(name, link) {
     const placeElement = placeTemplate.querySelector('.element').cloneNode(true); // если добавить вне функции перезаписывает элементы!
-    placeElement.querySelector('.element__piture').src = link;
-    placeElement.querySelector('.element__piture').alt = name;
+    const placeElementPicture = placeElement.querySelector('.element__piture');
+    placeElementPicture.src = link;
+    placeElementPicture.alt = name;
     placeElement.querySelector('.element__placeName').textContent = name;
-    placeElement.querySelector('.element__piture').addEventListener('click', openPicture);
+    placeElementPicture.addEventListener('click', openPicture);
     placeElement.querySelector('.element__deleteButton').addEventListener('click', deletePlace);
     placeElement.querySelector('.element__like').addEventListener('click', pushLike);
-    elementsBox.prepend(placeElement);
+    return(placeElement);
 }
+
+//функция добавления места
+function addplace(name, link) {
+    elementsBox.prepend(getCardElement(name, link));
+};
 
 //выводим массив с базовыми местами
 initialCards.forEach(function (item) {
@@ -73,33 +78,33 @@ initialCards.forEach(function (item) {
 function addValuePopup() {
     nameInput.value = profileTitle.textContent;
     jobInput.value = profileSubtitle.textContent;
-    openpopup(overlayEdit);
+    openPopup(overlayEdit);
 }
 
 //Функция открытия popup
-function openpopup(type) {
+function openPopup(type) {
     type.classList.add('overlay_active');
 }
 
 //Функция закрытия popup без сохранения данных
-function closepopup(type) {
+function closePopup(type) {
     type.classList.remove('overlay_active')
 }
 
 //Функция закрытия popup редактирования с сохранением данных
-function formEditSubmit (evt) {
+function changeFormEdit (evt) {
     evt.preventDefault(); //оменяем стандартную обработку submit
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = jobInput.value;
-    closepopup(overlayEdit);
+    closePopup(overlayEdit);
 }
 
 //Функция закрытия popup c создание нового места
-function formAddSubmit (evt) {
+function createPlace (evt) {
     evt.preventDefault(); //оменяем стандартную обработку submit
     addplace(namePlace.value, imgPlace.value);
     formAddPopup.reset();
-    closepopup(overlayAddPlace);
+    closePopup(overlayAddPlace);
 }
 
 //функция удаления 
@@ -117,14 +122,14 @@ function openPicture(evt) {
     overlayPicture.src = evt.target.src;
     overlayPicture.alt = evt.target.alt;
     overlayPictureName.textContent = evt.target.alt;
-    openpopup(overlayPictureBox);
+    openPopup(overlayPictureBox);
 }
 
 //слушатели
-openAddButton.addEventListener("click", () => openpopup(overlayAddPlace));
-closeAddBoxButton.addEventListener("click", () => closepopup(overlayAddPlace));
+openAddButton.addEventListener("click", () => openPopup(overlayAddPlace));
+closeAddBoxButton.addEventListener("click", () => closePopup(overlayAddPlace));
 openEditButton.addEventListener("click", () => addValuePopup());
-closeEditButton.addEventListener("click", () => closepopup(overlayEdit));
-formEditPopup.addEventListener('submit', formEditSubmit);
-formAddPopup.addEventListener('submit', formAddSubmit);
-closePictureButton.addEventListener("click", () => closepopup(overlayPictureBox));
+closeEditButton.addEventListener("click", () => closePopup(overlayEdit));
+formEditPopup.addEventListener('submit', changeFormEdit);
+formAddPopup.addEventListener('submit', createPlace);
+closePictureButton.addEventListener("click", () => closePopup(overlayPictureBox));
