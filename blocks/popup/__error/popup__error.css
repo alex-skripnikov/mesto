@@ -1,0 +1,22 @@
+.popup__error {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
+  font-family: Inter;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  position: relative;
+  top: -11px;
+  width: 358px;
+  height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__error {
+    width: 100%;
+  }
+}

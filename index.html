@@ -48,9 +48,11 @@
     <section class="overlay overlay_type_edit">
       <div class="popup">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="popup__form" name="editProfile">
-          <input type="text" name="name" class="popup__input popup__input_value_name" required placeholder="Ваше имя" value="">
-          <input type="text" name="job" class="popup__input popup__input_value_job" required placeholder="Ваша профессия" value="">
+        <form class="popup__form" name="editProfile" novalidate>
+          <input type="text" minlength="2" maxlength="40" name="name" class="popup__input popup__input_value_name" required placeholder="Ваше имя" value="">
+          <span class="popup__error name-error">Скрытый текст для теста</span>
+          <input type="text" minlength="2" maxlength="200" name="job" class="popup__input popup__input_value_job" required placeholder="Ваша профессия" value="">
+          <span class="popup__error job-error">Скрытый текст для теста</span>
           <button type="submit" class="popup__saveButton">Сохранить</button>
         </form>
         <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
@@ -60,9 +62,11 @@
     <section class="overlay overlay_type_addPlace">
       <div class="popup">
         <h3 class="popup__title">Новое место</h3>
-        <form class="popup__form" name="addNewPlace">
-          <input type="text" name="namePlace" class="popup__input popup__input_value_namePlace" required placeholder="Название" value="">
-          <input type="text" name="imgPlace" class="popup__input popup__input_value_imgPlace" required placeholder="Ссылка на картинку" value="">
+        <form class="popup__form" name="addNewPlace" novalidate>
+          <input type="text" minlength="2" maxlength="30" name="namePlace" class="popup__input popup__input_value_namePlace" required placeholder="Название" value="">
+          <span class="popup__error namePlace-error">Скрытый текст для теста</span>
+          <input type="url" name="imgPlace" class="popup__input popup__input_value_imgPlace" required placeholder="Ссылка на картинку" value="">
+          <span class="popup__error imgPlace-error">Скрытый текст для теста</span>
           <button type="submit" class="popup__saveButton">Создать</button>
         </form>
         <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
@@ -79,7 +83,9 @@
     
   </div>
 
+<script src="./script/cards.js"></script>
 <script src="./script/script.js"></script>
+<script src="./script/validate.js"></script>
 
 </body>
 </html>

@@ -23,34 +23,6 @@ const closePictureButton = overlayPictureBox.querySelector('.popup__closeButton'
 const elementsBox = document.querySelector('.elements'); //общий контейнер для мест, сюда добавляем места функцией addplace
 const placeTemplate = elementsBox.querySelector('.elements__articleTemplate').content; //шаблон для мест используем в функции addplace
 
-//массив с базовыми местами
-const initialCards = [
-    {
-      name: 'Амальфи',
-      link: './images/ravello.jpg'
-    },
-    {
-      name: 'Барселона',
-      link: './images/barselona.jpg'
-    },
-    {
-      name: 'Крит',
-      link: './images/crete.jpg'
-    },
-    {
-      name: 'Москва',
-      link: './images/moscow.jpg'
-    },
-    {
-      name: 'Таллин',
-      link: './images/talin.jpg'
-    },
-    {
-      name: 'Тарту',
-      link: './images/tartu.jpg'
-    }
-];
-
 //функция создания элемента нового места
 function getCardElement(name, link) {
     const placeElement = placeTemplate.querySelector('.element').cloneNode(true); // если добавить вне функции перезаписывает элементы!
@@ -58,9 +30,6 @@ function getCardElement(name, link) {
     placeElementPicture.src = link;
     placeElementPicture.alt = name;
     placeElement.querySelector('.element__placeName').textContent = name;
-    placeElementPicture.addEventListener('click', openPicture);
-    placeElement.querySelector('.element__deleteButton').addEventListener('click', deletePlace);
-    placeElement.querySelector('.element__like').addEventListener('click', pushLike);
     return(placeElement);
 }
 
@@ -94,17 +63,41 @@ function closePopup(type) {
 //Функция закрытия popup редактирования с сохранением данных
 function changeFormEdit (evt) {
     evt.preventDefault(); //оменяем стандартную обработку submit
-    profileTitle.textContent = nameInput.value;
-    profileSubtitle.textContent = jobInput.value;
-    closePopup(overlayEdit);
+    const lokalFormButton = evt.target.querySelector('.popup__saveButton');
+    if (!lokalFormButton.classList.contains('popup__saveButton_disabled')) {
+        profileTitle.textContent = nameInput.value;
+        profileSubtitle.textContent = jobInput.value;
+        lokalFormButton.classList.add('popup__saveButton_disabled');
+        closePopup(overlayEdit);
+    };
 }
 
 //Функция закрытия popup c создание нового места
 function createPlace (evt) {
     evt.preventDefault(); //оменяем стандартную обработку submit
-    addplace(namePlace.value, imgPlace.value);
-    formAddPopup.reset();
-    closePopup(overlayAddPlace);
+    const lokalFormButton = evt.target.querySelector('.popup__saveButton');
+    if (!lokalFormButton.classList.contains('popup__saveButton_disabled')) {
+        addplace(namePlace.value, imgPlace.value);
+        formAddPopup.reset();
+        lokalFormButton.classList.add('popup__saveButton_disabled');
+        closePopup(overlayAddPlace);
+    };
+}
+
+//функция закрытия popup по клику на overlay
+function closePopupByOverlay(evt, type) {
+    if (evt.target === type) {
+        closePopup(type);
+    }
+}
+
+//функция закрытия popup по кнопке Esc
+function closePopupByEsc(evt) {
+    if (evt.key === 'Escape') {
+        closePopup(overlayEdit);
+        closePopup(overlayAddPlace);
+        closePopup(overlayPictureBox);
+    }
 }
 
 //функция удаления 
@@ -125,6 +118,19 @@ function openPicture(evt) {
     openPopup(overlayPictureBox);
 }
 
+//функция обработчик клика на elementsBox чтобы убрать создание слушателей из getCardElement
+function processingClickElementBox(evt) {
+    if (evt.target.classList.contains('element__like')) {
+        pushLike(evt);
+    };
+    if (evt.target.classList.contains('element__piture')) {
+        openPicture(evt);
+    };
+    if (evt.target.classList.contains('element__deleteButton')) {
+        deletePlace(evt);
+    };
+}
+
 //слушатели
 openAddButton.addEventListener("click", () => openPopup(overlayAddPlace));
 closeAddBoxButton.addEventListener("click", () => closePopup(overlayAddPlace));
@@ -133,3 +139,8 @@ closeEditButton.addEventListener("click", () => closePopup(overlayEdit));
 formEditPopup.addEventListener('submit', changeFormEdit);
 formAddPopup.addEventListener('submit', createPlace);
 closePictureButton.addEventListener("click", () => closePopup(overlayPictureBox));
+overlayEdit.addEventListener("click", (evt) => closePopupByOverlay(evt, overlayEdit));
+overlayAddPlace.addEventListener("click", (evt) => closePopupByOverlay(evt, overlayAddPlace));
+overlayPictureBox.addEventListener("click", (evt) => closePopupByOverlay(evt, overlayPictureBox));
+document.body.addEventListener("keydown", (evt) => closePopupByEsc(evt));
+elementsBox.addEventListener("click", (evt) => processingClickElementBox(evt));
