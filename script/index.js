@@ -1,3 +1,8 @@
+
+import { initialCards } from './cards.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+
 //Переменные
 const overlayEdit = document.querySelector('.overlay_type_edit'); // секция попапа редактирования
 const openEditButton = document.querySelector('.profile__editButton'); // кнопка открытия попапа редактирования
@@ -6,20 +11,12 @@ const profileSubtitle = document.querySelector('.profile__subtitle'); // тек�
 const formEditPopup = overlayEdit.querySelector('.popup__form'); // форма попапа редактирования
 const nameInput = formEditPopup.querySelector('.popup__input_value_name'); // поле имя в форме попапа редактирования
 const jobInput = formEditPopup.querySelector('.popup__input_value_job'); // поле работа в форме попапа редактирования
-
 const overlayAddPlace = document.querySelector('.overlay_type_addPlace'); // секция попапа добавления места
 const openAddButton = document.querySelector('.profile__addButton'); // кнопка открытия попапа добавления места
 const formAddPopup = overlayAddPlace.querySelector('.popup__form'); // форма попапа добавления места
 const namePlace = formAddPopup.querySelector('.popup__input_value_namePlace'); // поле имя в форме добавления места
 const imgPlace = formAddPopup.querySelector('.popup__input_value_imgPlace'); // поле картинка в форме добавления места
-
-const overlayPictureBox = document.querySelector('.overlay_type_image'); // секция попапа большой картинки
-const overlayPicture = overlayPictureBox.querySelector('.popup__piture'); // картинка попапа большой картинки
-const overlayPictureName = overlayPictureBox.querySelector('.popup__pitureName'); // подпись попапа большой картинки
-
-const elementsBox = document.querySelector('.elements'); //общий контейнер для мест, сюда добавляем места функцией addPlace
-const placeTemplate = elementsBox.querySelector('.elements__articleTemplate').content; //шаблон для мест используем в функции addPlace
-
+const elementsBox = document.querySelector('.elements'); //общий контейнер для мест, сюда добавляем места
 const popups = document.querySelectorAll('.overlay')//массив всех popup с overlay на странице
 
 //добавляем обработчик клика всем popup с overlay на странице и закрываем если кликают по крестику или overlay_active
@@ -33,26 +30,6 @@ popups.forEach((popup) => {
         }
     })
 })
-
-//функция создания элемента нового места
-function getCardElement(name, link) {
-    const placeElement = placeTemplate.querySelector('.element').cloneNode(true); // если добавить вне функции перезаписывает элементы!
-    const placeElementPicture = placeElement.querySelector('.element__piture');
-    placeElementPicture.src = link;
-    placeElementPicture.alt = name;
-    placeElement.querySelector('.element__placeName').textContent = name;
-    return(placeElement);
-}
-
-//функция добавления места
-function addPlace(name, link) {
-    elementsBox.prepend(getCardElement(name, link));
-};
-
-//выводим массив с базовыми местами
-initialCards.forEach(function (item) {
-    addPlace(item.name, item.link);
-});
 
 //Функция внесения данных в форму перед открытием попапа редактирования
 function addValuePopup() {
@@ -85,12 +62,23 @@ function changeFormEdit (evt) {
     };
 }
 
+//функция добавления карточки места с помощью класса Card
+function addPlace(item) {
+    const card = new Card(item, '.elements__articleTemplate');
+	const cardElement = card.generateCard();
+	elementsBox.prepend(cardElement);
+};
+
 //Функция закрытия popup c создание нового места
 function createPlace (evt) {
     evt.preventDefault(); //оменяем стандартную обработку submit
     const lokalFormButton = evt.target.querySelector('.popup__saveButton');
     if (!lokalFormButton.classList.contains('popup__saveButton_disabled')) {
-        addPlace(namePlace.value, imgPlace.value);
+        const _newCardElement = {
+            name: namePlace.value,
+            link: imgPlace.value
+          }
+        addPlace(_newCardElement);
         formAddPopup.reset();
         lokalFormButton.classList.add('popup__saveButton_disabled');
         closePopup(overlayAddPlace);
@@ -105,40 +93,33 @@ function closePopupByEsc(evt) {
     }
 }
 
-//функция удаления места
-function deletePlace(evt) {
-    evt.target.closest('.element').remove();
-}
+//создаем карточки при помощи класса card
+//проходим по массиву с карточками и вызываем функцию addPlace для каждого эдемента
+initialCards.forEach((item) => {
+    addPlace(item);
+});
 
-//функция добавления лайка
-function pushLike(evt) {
-    evt.target.classList.toggle('elements__like_active');
-}
 
-//функция открытия popup c изображением
-function openPicture(evt) {
-    overlayPicture.src = evt.target.src;
-    overlayPicture.alt = evt.target.alt;
-    overlayPictureName.textContent = evt.target.alt;
-    openPopup(overlayPictureBox);
-}
+// объект настроек формы
+const formSetting = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__saveButton',
+    inactiveButtonClass: 'popup__saveButton_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  };
+  
+//создаем объекты валидации для каждой формы
+const ValidAddPopup = new FormValidator(formSetting, formAddPopup);
+ValidAddPopup.enableValidation();
 
-//функция обработчик клика на elementsBox чтобы убрать создание слушателей из getCardElement
-function processingClickElementBox(evt) {
-    if (evt.target.classList.contains('element__like')) {
-        pushLike(evt);
-    };
-    if (evt.target.classList.contains('element__piture')) {
-        openPicture(evt);
-    };
-    if (evt.target.classList.contains('element__deleteButton')) {
-        deletePlace(evt);
-    };
-}
+const ValidEditPopup = new FormValidator(formSetting, formEditPopup);
+ValidEditPopup.enableValidation();
+
 
 //слушатели
 openAddButton.addEventListener("click", () => openPopup(overlayAddPlace));
 openEditButton.addEventListener("click", () => addValuePopup());
 formEditPopup.addEventListener('submit', changeFormEdit);
 formAddPopup.addEventListener('submit', createPlace);
-elementsBox.addEventListener("click", (evt) => processingClickElementBox(evt));
