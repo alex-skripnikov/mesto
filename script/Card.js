@@ -1,3 +1,5 @@
+import { openPopup } from './index.js';
+
 const overlayPictureBox = document.querySelector('.overlay_type_image'); // секция попапа большой картинки
 const overlayPicture = overlayPictureBox.querySelector('.popup__piture'); // картинка попапа большой картинки
 const overlayPictureName = overlayPictureBox.querySelector('.popup__pitureName'); // подпись попапа большой картинки

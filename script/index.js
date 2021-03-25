@@ -39,7 +39,7 @@ function addValuePopup() {
 }
 
 //Функция открытия popup
-function openPopup(type) {
+export function openPopup(type) {
     type.classList.add('overlay_active');
     document.addEventListener('keydown', closePopupByEsc);
 }
