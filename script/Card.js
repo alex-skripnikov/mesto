@@ -1,8 +1,4 @@
-import { openPopup } from './index.js';
-
-const overlayPictureBox = document.querySelector('.overlay_type_image'); // секция попапа большой картинки
-const overlayPicture = overlayPictureBox.querySelector('.popup__piture'); // картинка попапа большой картинки
-const overlayPictureName = overlayPictureBox.querySelector('.popup__pitureName'); // подпись попапа большой картинки
+import { openPopup, overlayPictureBox, overlayPicture, overlayPictureName  } from './index.js';
 
 // класс карточки места
 export class Card {
@@ -33,18 +29,16 @@ export class Card {
       this._element.querySelector('.element__placeName').textContent = this._name;
 
       //добавление слушателей
-      this._setLiketListeners();//слушатель лайка
-      this._setDeletePlaceListeners();//слушатель удаления места
-      this._setOpenPicturetListeners();//слушатель открытия popup c изображением
+      this._setEventListeners();
 
   	return this._element;
     }
 
-    //создание слушателя лайка
-    _setLiketListeners() {
-      this._element.querySelector('.element__like').addEventListener('click', () => {
-      this._pushLike();
-    });
+    //создание слушателей лайка, удаления места и открытия popup c изображением
+    _setEventListeners() {
+      this._element.querySelector('.element__like').addEventListener('click', () => { this._pushLike(); });
+      this._element.querySelector('.element__deleteButton').addEventListener('click', () => { this._deletePlace(); });
+      this._element.querySelector('.element__piture').addEventListener('click', () => { this._openPicture(); });
     }
 
     //обработчик события лайка
@@ -52,24 +46,9 @@ export class Card {
       this._element.querySelector('.element__like').classList.toggle('elements__like_active');
     }
 
-
-    //создание слушателя удаления места
-    _setDeletePlaceListeners() {
-        this._element.querySelector('.element__deleteButton').addEventListener('click', () => {
-        this._deletePlace();
-      });
-      }
-  
     //обработчик события удаления места
     _deletePlace() {
         this._element.querySelector('.element__deleteButton').closest('.element').remove();
-    }
-
-    //создание слушателя открытия popup c изображением
-    _setOpenPicturetListeners() {
-        this._element.querySelector('.element__piture').addEventListener('click', () => {
-        this._openPicture();
-      });
     }
   
     //обработчик события открытия popup c изображением

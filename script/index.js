@@ -18,6 +18,9 @@ const namePlace = formAddPopup.querySelector('.popup__input_value_namePlace'); /
 const imgPlace = formAddPopup.querySelector('.popup__input_value_imgPlace'); // поле картинка в форме добавления места
 const elementsBox = document.querySelector('.elements'); //общий контейнер для мест, сюда добавляем места
 const popups = document.querySelectorAll('.overlay')//массив всех popup с overlay на странице
+export const overlayPictureBox = document.querySelector('.overlay_type_image'); // секция попапа большой картинки
+export const overlayPicture = overlayPictureBox.querySelector('.popup__piture'); // картинка попапа большой картинки
+export const overlayPictureName = overlayPictureBox.querySelector('.popup__pitureName'); // подпись попапа большой картинки
 
 //добавляем обработчик клика всем popup с overlay на странице и закрываем если кликают по крестику или overlay_active
 popups.forEach((popup) => {
@@ -51,15 +54,11 @@ function closePopup(type) {
 }
 
 //Функция закрытия popup редактирования с сохранением данных
-function changeFormEdit (evt) {
-    evt.preventDefault(); //оменяем стандартную обработку submit
-    const lokalFormButton = evt.target.querySelector('.popup__saveButton');
-    if (!lokalFormButton.classList.contains('popup__saveButton_disabled')) {
-        profileTitle.textContent = nameInput.value;
-        profileSubtitle.textContent = jobInput.value;
-        lokalFormButton.classList.add('popup__saveButton_disabled');
-        closePopup(overlayEdit);
-    };
+function changeFormEdit () {
+    profileTitle.textContent = nameInput.value;
+    profileSubtitle.textContent = jobInput.value;
+    ValidEditPopup.disableSubmitButton();//публичный метод модуля FormValidator для выключения кнопки
+    closePopup(overlayEdit);
 }
 
 //функция добавления карточки места с помощью класса Card
@@ -71,18 +70,14 @@ function addPlace(item) {
 
 //Функция закрытия popup c создание нового места
 function createPlace (evt) {
-    evt.preventDefault(); //оменяем стандартную обработку submit
-    const lokalFormButton = evt.target.querySelector('.popup__saveButton');
-    if (!lokalFormButton.classList.contains('popup__saveButton_disabled')) {
-        const _newCardElement = {
-            name: namePlace.value,
-            link: imgPlace.value
-          }
-        addPlace(_newCardElement);
-        formAddPopup.reset();
-        lokalFormButton.classList.add('popup__saveButton_disabled');
-        closePopup(overlayAddPlace);
-    };
+    const _newCardElement = {
+        name: namePlace.value,
+        link: imgPlace.value
+        }
+    addPlace(_newCardElement);
+    formAddPopup.reset();
+    ValidAddPopup.disableSubmitButton();//публичный метод модуля FormValidator для выключения кнопки
+    closePopup(overlayAddPlace);
 }
 
 //функция закрытия popup по кнопке Esc
