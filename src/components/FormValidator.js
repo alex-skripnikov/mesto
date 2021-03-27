@@ -15,7 +15,7 @@ export class FormValidator {
   }
 
   // Функция isValid проверяет валидность inputElement
-  _isValid = (inputElement) => {
+  _isValid(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -24,7 +24,7 @@ export class FormValidator {
   }; 
 
   // функция showInputError показывает элемент ошибки и добавляет класс ошибки inputElement
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError(inputElement, errorMessage) {
     const errorElement = this._form.querySelector(`.${inputElement.name}-error`);
     inputElement.classList.add(this._inactiveButtonClass);
     errorElement.classList.add(this._errorClass);
@@ -32,7 +32,7 @@ export class FormValidator {
   };
 
   // функция hideInputError скрывает элемент ошибки  и убирает класс ошибки inputElement
-  _hideInputError = (inputElement) => {
+  _hideInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.name}-error`);
     inputElement.classList.remove(this._inactiveButtonClass);
     errorElement.classList.remove(this._errorClass);
@@ -40,7 +40,7 @@ export class FormValidator {
   }; 
 
   // функция setEventListeners добавляет слушатель событий всем полям inputElement и запускает toggleButtonState кнопкам
-  _setEventListeners = () => {
+  _setEventListeners() {
     // Вызовем toggleButtonState чтобы кнопка изначально была неактивна
     this._toggleButtonState();
     // Обойдём все элементы полученной коллекции
@@ -57,10 +57,9 @@ export class FormValidator {
   }; 
 
   //функция toggleButtonState переключения активности кнопки в формах
-  _toggleButtonState = () => {
+  _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this._buttonElement.setAttribute("disabled", true);
-      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this.disableSubmitButton();
     } else {
       this._buttonElement.removeAttribute("disabled");
       this._buttonElement.classList.remove(this._inactiveButtonClass);
@@ -74,14 +73,14 @@ export class FormValidator {
   } 
 
   //функция hasInvalidInput для проверки массива inputList на общую валидность для активации кнопки сабмит
-  _hasInvalidInput = () => {
+  _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     })
   }; 
 
   //функция enableValidation отменяет стандартную обработку формы и вызовет setEventListeners
-enableValidation = () => {
+enableValidation() {
   this._form.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });

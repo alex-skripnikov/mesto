@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto - Учебный проект Скрипникова Александра ЯПрактикум</title>
 </head>
 <body>
   <div class="root">
     
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
     </header>
     
     <main class="content">
 
       <section class="profile">
-          <img class="profile__avatar" src="./images/avatar.jpg" alt="Логотип">
+          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Логотип">
           <div class="profile__titleBox">
             <h1 class="profile__title">Все наладится</h1>
             <button class="profile__editButton" type="button" aria-label="Редактировать"></button>
@@ -28,7 +27,7 @@
       <section class="elements">
         <template class="elements__articleTemplate">
           <article class="element">
-            <img class="element__piture" alt="Картинка статьи" src="./images/barselona.jpg">
+            <img class="element__piture" src="<%=require('./images/barselona.jpg')%>" alt="Картинка статьи">
             <button class="element__deleteButton" type="button" aria-label="Удалить"></button>
             <div class="element__nameBox">
               <h2 class="element__placeName"></h2>
@@ -75,18 +74,13 @@
 
     <section class="overlay overlay_type_image">
       <div class="popup popup_type_picture">
-        <img class="popup__piture" alt="Картинка статьи" src="./images/barselona.jpg">
+        <img class="popup__piture" src="<%=require('./images/barselona.jpg')%>" alt="Картинка статьи">
         <p class="popup__pitureName"></p>
         <button class="popup__closeButton popup__closeButton_type_picture" type="button" aria-label="Закрыть"></button>
       </div>
     </section>
     
   </div>
-
-<script type="module" src="./script/index.js"></script>
-<script type="module" src="./script/cards.js"></script>
-<script type="module" src="./script/Card.js"></script>
-<script type="module" src="./script/FormValidator.js"></script>
 
 </body>
 </html>

@@ -1,12 +1,10 @@
-import { openPopup, overlayPictureBox, overlayPicture, overlayPictureName  } from './index.js';
-
-// класс карточки места
 export class Card {
     //конструктор карточки места
-	constructor(data, cardSelector) {
+	constructor(data, cardSelector,  { handleCardClick }) {
 		this._name = data.name;
 		this._link = data.link;
 		this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
 	}
 
     //приватный метод находит шаблон карточки и клонирует его
@@ -53,9 +51,6 @@ export class Card {
   
     //обработчик события открытия popup c изображением
     _openPicture() {
-        overlayPicture.src = this._link;
-        overlayPicture.alt = this._name;
-        overlayPictureName.textContent = this._name;
-        openPopup(overlayPictureBox);
+      this._handleCardClick();
     }
 }
