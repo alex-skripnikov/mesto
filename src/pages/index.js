@@ -18,19 +18,25 @@ const openAddButton = document.querySelector('.profile__addButton'); // кноп
 const formAddPopup = overlayAddPlace.querySelector('.popup__form'); // форма попапа добавления места
 const elementsBox = document.querySelector('.elements'); //общий контейнер для мест, сюда добавляем места
 
+//создаем попап с изображением
+const itemPopupWithImage = new PopupWithImage('.overlay_type_image');
+itemPopupWithImage.setEventListeners();
+
+//функция создания карточки возвращает элемент карточки
+function createCard(item) {
+    const card = new Card(item, '.elements__articleTemplate', {
+        handleCardClick: () => {
+            itemPopupWithImage.open(item.link, item.name);
+          }
+    });
+    return card.generateCard();
+  }
+
 //создаем первоначальные 6 карточек
 const DefaultCards = new Section ({ 
     items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, '.elements__articleTemplate', {
-            handleCardClick: () => {
-                const itemPopupWithImage = new PopupWithImage('.overlay_type_image');
-                itemPopupWithImage.open(item.link, item.name);
-                itemPopupWithImage.setEventListeners()
-              }
-        });
-        const cardElement = card.generateCard();
-        elementsBox.prepend(cardElement);
+        elementsBox.prepend(createCard(item));
         } 
 }, '.elements');
 DefaultCards.renderItems();
@@ -60,15 +66,7 @@ const CardAddPopup = new PopupWithForm ('.overlay_type_addPlace', {
             name: overlayAddPlace.querySelector('.popup__input_value_namePlace').value,
             link: overlayAddPlace.querySelector('.popup__input_value_imgPlace').value
           };
-        const newCard = new Card(newCardData, '.elements__articleTemplate', {
-            handleCardClick: () => {
-                const itemPopupWithImage = new PopupWithImage('.overlay_type_image');
-                itemPopupWithImage.open(newCardData.link, newCardData.name);
-                itemPopupWithImage.setEventListeners()
-              }
-        });
-        const newCardElement = newCard.generateCard();
-        DefaultCards.addItem(newCardElement);
+        DefaultCards.addItem(createCard(newCardData));
         ValidAddPopup.disableSubmitButton();
         CardAddPopup.close();
       }

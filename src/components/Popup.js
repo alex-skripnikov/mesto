@@ -7,19 +7,19 @@ export class Popup {
 	//публичный метод отвечающий за открытие Popup
     open() {
         this._popupElement.classList.add('overlay_active');
-        document.addEventListener('keydown', (evt) => { this._handleEscClose(evt); });
+        document.addEventListener('keydown', this._handleEscClose.bind(this));
     }
 
 	//публичный метод отвечающий за закрытие Popup
     close() {
         this._popupElement.classList.remove('overlay_active');
-        document.removeEventListener('keydown', (evt) => { this._handleEscClose(evt); });
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     }
 
     //приватный метод отвечающий за закрытие Popup по кнопке Esc
-    _handleEscClose(evt) {
-        if (evt.key === 'Escape') { this.close(); }
-    }
+    _handleEscClose() {
+        if (event.code === 'Escape') { this.close(); }
+    } 
 
     //публичный метод который добавляет слушатель клика иконке закрытия попапа
     setEventListeners() {
