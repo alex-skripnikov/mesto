@@ -61,7 +61,6 @@ function deleteCardOfSevere(itemcardId, itemcard) {
     popupDeleteButton.addEventListener('click', deleteCard);
 }
 
-
 //создаем попап с изображением
 const itemPopupWithImage = new PopupWithImage('.overlay_type_image');
 itemPopupWithImage.setEventListeners();
