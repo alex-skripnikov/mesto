@@ -1,7 +1,8 @@
 export class UserInfo {
-    constructor({ userNameSelector, userProfessionSelector }) {
+    constructor({ userNameSelector, userProfessionSelector, userAvatarSelector }) {
       this._userName = document.querySelector(userNameSelector);
       this._userProfession = document.querySelector(userProfessionSelector);
+      this._userAvatar = document.querySelector(userAvatarSelector);
     }
 
     //публичный метод - возвращает объект с данными пользователя
@@ -16,4 +17,9 @@ export class UserInfo {
         this._userName.textContent = userName;
         this._userProfession.textContent = userProfession;
     }
+
+    //публичный метод - принимает новый аватар пользователя и добавляет их на страницу
+    setAvatar(userAvatar) {
+      this._userAvatar.src = userAvatar;
+  }
   }

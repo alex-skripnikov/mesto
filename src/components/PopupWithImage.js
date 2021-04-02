@@ -12,6 +12,6 @@ export class PopupWithImage extends Popup {
         this._overlayPicture.src = link;
         this._overlayPicture.alt = name;
         this._overlayPictureName.textContent = name;
-        super.open();;
+        super.open();
     }
 }

@@ -15,7 +15,9 @@
     <main class="content">
 
       <section class="profile">
+        <div class="profile__avatarBox">
           <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Логотип">
+        </div>
           <div class="profile__titleBox">
             <h1 class="profile__title">Все наладится</h1>
             <button class="profile__editButton" type="button" aria-label="Редактировать"></button>
@@ -31,7 +33,10 @@
             <button class="element__deleteButton" type="button" aria-label="Удалить"></button>
             <div class="element__nameBox">
               <h2 class="element__placeName"></h2>
-              <button class="element__like" type="button" aria-label="Нравится"></button>
+              <div class="element__likeBox">
+                <button class="element__like" type="button" aria-label="Нравится"></button>
+                <p class="element__likeСounter">0</p>
+              </div>
             </div>
           </article>
         </template>
@@ -68,6 +73,26 @@
           <span class="popup__error imgPlace-error">Скрытый текст для теста</span>
           <button type="submit" class="popup__saveButton">Создать</button>
         </form>
+        <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
+      </div>
+    </section>
+
+    <section class="overlay overlay_type_setAvatar">
+      <div class="popup">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form" name="setAvatar" novalidate>
+          <input type="url" name="newAvatar" class="popup__input popup__input_value_newAvatar" required placeholder="Ссылка на новый аватар" value="">
+          <span class="popup__error newAvatar-error">Скрытый текст для теста</span>
+          <button type="submit" class="popup__saveButton">Сохранить</button>
+        </form>
+        <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
+      </div>
+    </section>
+
+    <section class="overlay overlay_type_deletePlace">
+      <div class="popup">
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button class="popup__saveButton popup__deleteCardButton" type="button" aria-label="Удалить">Да</button>
         <button class="popup__closeButton" type="button" aria-label="Закрыть"></button>
       </div>
     </section>
