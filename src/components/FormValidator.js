@@ -21,7 +21,7 @@ export class FormValidator {
     } else {
       this._hideInputError(inputElement);
     }
-  }; 
+  };
 
   // функция showInputError показывает элемент ошибки и добавляет класс ошибки inputElement
   _showInputError(inputElement, errorMessage) {
@@ -37,7 +37,18 @@ export class FormValidator {
     inputElement.classList.remove(this._inactiveButtonClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
-  }; 
+  };
+
+  //публичный метод скрытия элемента ошибки для повторного открытия формы
+  hideErrorElement(errorElement) {
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = '';
+  }
+  //публичный метод скрытия класса ошибки у инпута
+  hideInputErrorElementStyle(inputElement) {
+    inputElement.classList.remove(this._inactiveButtonClass);
+  }
+
 
   // функция setEventListeners добавляет слушатель событий всем полям inputElement и запускает toggleButtonState кнопкам
   _setEventListeners() {

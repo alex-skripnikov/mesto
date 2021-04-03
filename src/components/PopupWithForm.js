@@ -2,10 +2,16 @@ import { Popup } from './Popup.js';
 
   //создаем форму редактирования: передаем классу PopupWithForm селектор формы и функцию-способ обработки закрытия
 export class PopupWithForm extends Popup {
-    constructor( popupSelector, { FormSubmit }) {
+    constructor( popupSelector, { submitHandler }, { hideErrrorHandler } ) {
         super(popupSelector);
-        this._FormSubmit = FormSubmit;
+        this._submitHandler = submitHandler;
+        this._hideErrrorHandler = hideErrrorHandler;
         this._form = this._popupElement.querySelector('.popup__form');
+    }
+
+    open() {
+        super.open();
+        this._hideErrrorHandler();
     }
 
     // приватный метод который собирает данные всех полей формы
@@ -16,12 +22,17 @@ export class PopupWithForm extends Popup {
         return this._formValues;
     }
 
+    //метод возвращающий элемент формы
+    getFormElement() {
+        return this._form;
+    }
+
     // дополненный setEventListeners - добавляет обработчик сабмита формы
     setEventListeners() {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => {
           evt.preventDefault();
-          this._FormSubmit(this._getInputValues());
+          this._submitHandler(this._getInputValues());
         });
     }
 

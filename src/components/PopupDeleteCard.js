@@ -1,26 +1,29 @@
 import { Popup } from './Popup.js';
-import { deleteCardOfSevere } from '../pages/index.js';
 
 export class PopupDeleteCard extends Popup {
-    /*constructor( popupSelector, { FormSubmit }) {
+    constructor(popupSelector, { deleteCardHandler }) {
         super(popupSelector);
-        this._deleteCardOfSevere = this._popupElement.querySelector('.popup__form');
-    }*/
+        this._deleteCardButton = this._popupElement.querySelector('.popup__deleteCardButton');
+        this._deleteCardHandler = deleteCardHandler;
+        this._deleteClick = this._deleteClick.bind(this)
+        }
 
 	//публичный метод отвечающий за открытие Popup
-    open(item, itemcard) {
+    open(cardId, element) { 
+        this._cardId = cardId;
+        this._delElement = element;
         //добавить слушатель для кнопки удаления
-        this._popupElement.querySelector('.popup__deleteCardButton').addEventListener("click", _deletecards (item, itemcard));
+        this._deleteCardButton.addEventListener("click", this._deleteClick);
         super.open();
     }
 
-    _deletecards (item, itemcard) {
-        deleteCardOfSevere(item, itemcard)
+    _deleteClick() {
+        this._deleteCardHandler(this._cardId, this._delElement);
     }
 
     close() {
         //снять слушатель для кнопки удаления
-        this._popupElement.querySelector('.popup__deleteCardButton').removeEventListener("click", _deletecards (item, itemcard));
+        this._deleteCardButton.removeEventListener("click", this._deleteClick);
         super.close();
     }
 }

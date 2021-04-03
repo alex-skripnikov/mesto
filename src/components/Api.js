@@ -17,7 +17,6 @@ export class Api {
             headers: this._headers,
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //метод получения массива с карточками
@@ -26,7 +25,6 @@ export class Api {
             headers: this._headers,
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //метод редактирования информации о пользователе
@@ -40,7 +38,6 @@ export class Api {
               })
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //метод добавления новой карточки на сервер
@@ -54,7 +51,6 @@ export class Api {
               })
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //метод удаления карточки
@@ -64,7 +60,6 @@ export class Api {
             headers: this._headers,
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //постановка лайка PUT https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId
@@ -74,7 +69,6 @@ export class Api {
             headers: this._headers,
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //удаление лайка DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId
@@ -84,7 +78,6 @@ export class Api {
             headers: this._headers,
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 
     //обновление аватара PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar 
@@ -97,6 +90,5 @@ export class Api {
               })
         })
         .then(res => {return this._getResponseData(res)})
-        .catch(err => Promise.reject(err))
     }
 }

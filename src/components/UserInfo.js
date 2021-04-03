@@ -14,12 +14,12 @@ export class UserInfo {
 
     //публичный метод - принимает новые данные пользователя и добавляет их на страницу
     setUserInfo(userName, userProfession) {
-        this._userName.textContent = userName;
-        this._userProfession.textContent = userProfession;
+      if(userName) { this._userName.textContent = userName; }
+      if(userProfession) { this._userProfession.textContent = userProfession; }
     }
 
     //публичный метод - принимает новый аватар пользователя и добавляет их на страницу
     setAvatar(userAvatar) {
-      this._userAvatar.src = userAvatar;
+      if(userAvatar) {this._userAvatar.src = userAvatar;}
   }
   }
