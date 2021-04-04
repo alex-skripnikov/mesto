@@ -4,7 +4,8 @@ export const formSetting = {
     submitButtonSelector: '.popup__saveButton',
     inactiveButtonClass: 'popup__saveButton_disabled',
     inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
+    errorClass: 'popup__error_visible',
+    errorElementClass: '.popup__error'
 };
 
 export const cardSchablonSelector = '.elements__articleTemplate';
@@ -33,15 +34,15 @@ export const options = {
     },
 }
 
-//переменная для временного хранения текста на кнопке если объявить через const пишет что только для чтения
-export let oldButtonName;
-//функция отображжения слова "Сохранение..." в формах
-export function renderLoading(popupName, isLoading) {
-    const newButtonName = popupName._popupElement.querySelector('.popup__saveButton');
+export function renderLoading(isLoading) {
+    const newButtonName = document.querySelector('.overlay_active .popup__saveButton');
+    const staticContent = newButtonName.querySelector('.popup__staticContent');
+    const processContent = newButtonName.querySelector('.popup__processContent');
     if(isLoading) {
-        oldButtonName = newButtonName.textContent;
-        newButtonName.textContent = 'Сохранение...';
+        staticContent.classList.add('popup__staticContent_hiden');
+        processContent.classList.add('popup__processContent_active');
     } else {
-        newButtonName.textContent = oldButtonName;
+        staticContent.classList.remove('popup__staticContent_hiden');
+        processContent.classList.remove('popup__processContent_active');
     }
 }

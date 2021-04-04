@@ -7,7 +7,7 @@ import { UserInfo } from '../components/UserInfo.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Api } from '../components/Api.js';
-import { formSetting, options, renderLoading, oldButtonName, dataUser, overlaySelectors, cardSchablonSelector, cardBoxSelector, } from '../utils/constants.js';
+import { formSetting, options, renderLoading, dataUser, overlaySelectors, cardSchablonSelector, cardBoxSelector, } from '../utils/constants.js';
 
 
 //Переменные
@@ -24,6 +24,7 @@ const newsAvatarPopup = document.querySelector('.overlay_type_setAvatar'); // ф
 const popupDeleteButton = document.querySelector('.popup__deleteCardButton');
 const nameInputElement = overlayAddPlace.querySelector('.popup__input_value_namePlace');
 const imageInputElement = overlayAddPlace.querySelector('.popup__input_value_imgPlace');
+const avatarBox = document.querySelector('.profile__avatarBox');
 
 //создание экземпляра класса UserInfo
 const userData = new UserInfo({
@@ -99,22 +100,6 @@ validEditPopup.enableValidation();
 const validNewAvatarPopup = new FormValidator(formSetting, newsAvatarPopup);
 validNewAvatarPopup.enableValidation();
 
-//при открытии попапов скрываем поля ошибок
-function hideErrorElements(Popup, ValidPopup) {
-    const errorElements = Popup.getFormElement().querySelectorAll('.popup__error');
-    errorElements.forEach((errorElement) => {
-        if (errorElement.classList.contains(formSetting.errorClass)) {
-            ValidPopup.hideErrorElement(errorElement);
-        }
-    });
-    const inputElements = Popup.getFormElement().querySelectorAll('.popup__input');
-    inputElements.forEach((inputElement) => {
-        if (inputElement.classList.contains(formSetting.inactiveButtonClass)) {
-            ValidPopup.hideInputErrorElementStyle(inputElement);
-        }
-    });
-}
-
 //создаем экземпляр класса Api
 const api = new Api(options);
 
@@ -170,23 +155,21 @@ Promise.all(promises)
 //создаем попап редактирования передаем классу PopupWithForm селектор формы и функцию-способ обработки закрытия
 const editPopup = new PopupWithForm(overlaySelectors.edit, {
     submitHandler: () => {
-        renderLoading(editPopup, true);
+        renderLoading(true);
         //редактируем данные о пользователе на сервере и на странице
         api.setUserInfoOnServer(nameInput.value, jobInput.value)
         .then(data => {
             userData.setUserInfo(data.name, data.about);
+            renderLoading(false);
             editPopup.close();
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
-        })
-        .finally(() => {
-            renderLoading(editPopup, false);
         }); 
     }
 }, {
-    hideErrrorHandler: () => {
-        hideErrorElements(editPopup, validEditPopup);
+    hideErrorHandler: () => {
+        validEditPopup.hideErrorElements();
     }
 });
 editPopup.setEventListeners();
@@ -194,24 +177,22 @@ editPopup.setEventListeners();
 //создаем попап обновления аватара
 const newAvatarPopup = new PopupWithForm(overlaySelectors.setAvatar, {
     submitHandler: () => {
-        renderLoading(newAvatarPopup, true);
+        renderLoading(true);
         const newAvatar = newsAvatarPopup.querySelector('.popup__input_value_newAvatar');
         api.setAvatar(newAvatar.value)
         .then(data => {
             userData.setAvatar(data.avatar);
             validNewAvatarPopup.disableSubmitButton();
+            renderLoading(false);
             newAvatarPopup.close();
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
-        })
-        .finally(() => {
-            renderLoading(newAvatarPopup, false);
         }); 
     }
 }, {
-    hideErrrorHandler: () => {
-        hideErrorElements(newAvatarPopup, validNewAvatarPopup);
+    hideErrorHandler: () => {
+        validNewAvatarPopup.hideErrorElements();
     }
 });
 newAvatarPopup.setEventListeners();
@@ -228,7 +209,7 @@ function editPopupOpen() {
 //создаем форму добавления новой карточки
 const cardAddPopup = new PopupWithForm (overlaySelectors.addPlace, {
     submitHandler: () => {
-        renderLoading(cardAddPopup, true);
+        renderLoading(true);
         const newCardData = {
             name: nameInputElement.value,
             link: imageInputElement.value
@@ -237,18 +218,16 @@ const cardAddPopup = new PopupWithForm (overlaySelectors.addPlace, {
         .then(data => {
             defaultCards.addItem(createCard(data));
             validAddPopup.disableSubmitButton();
+            renderLoading(false);
             cardAddPopup.close();
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
-        })
-        .finally(() => {
-            renderLoading(cardAddPopup, false);
-        }); 
+        });
       }
 }, {
-    hideErrrorHandler: () => {
-        hideErrorElements(cardAddPopup, validAddPopup);
+    hideErrorHandler: () => {
+        validAddPopup.hideErrorElements();
     }
 });
 cardAddPopup.setEventListeners();
@@ -256,4 +235,4 @@ cardAddPopup.setEventListeners();
 //слушатели
 openAddButton.addEventListener("click", () => cardAddPopup.open());
 openEditButton.addEventListener("click", () => editPopupOpen());
-document.querySelector('.profile__avatarBox').addEventListener("click", () => newAvatarPopup.open());
+avatarBox.addEventListener("click", () => newAvatarPopup.open());

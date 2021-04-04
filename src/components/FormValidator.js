@@ -8,10 +8,10 @@ export class FormValidator {
     this._inactiveButtonClass = data.inactiveButtonClass;
     this._inputErrorClass = data.inputErrorClass;
     this._errorClass = data.errorClass;
+    this._errorElementClass = data.errorElementClass;
     this._form = form;
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector)); // Массив из всез полей формы
     this._buttonElement = this._form.querySelector(this._submitButtonSelector); // кнопка отправки
-    
   }
 
   // Функция isValid проверяет валидность inputElement
@@ -39,15 +39,31 @@ export class FormValidator {
     errorElement.textContent = '';
   };
 
-  //публичный метод скрытия элемента ошибки для повторного открытия формы
-  hideErrorElement(errorElement) {
+  //метод скрытия элемента ошибки для повторного открытия формы
+  _hideErrorElement(errorElement) {
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   }
-  //публичный метод скрытия класса ошибки у инпута
-  hideInputErrorElementStyle(inputElement) {
+  //метод скрытия класса ошибки у инпута
+  _hideInputErrorElementStyle(inputElement) {
     inputElement.classList.remove(this._inactiveButtonClass);
   }
+
+  hideErrorElements() {
+    const errorElements = this._form.querySelectorAll(this._errorElementClass);
+    errorElements.forEach((errorElement) => {
+      if (errorElement.classList.contains(this._errorClass)) {
+          this._hideErrorElement(errorElement);
+      }
+    });
+    const inputElements = this._form.querySelectorAll(this._inputSelector);
+    inputElements.forEach((inputElement) => {
+        if (inputElement.classList.contains(this._inactiveButtonClass)) {
+          this._hideInputErrorElementStyle(inputElement);
+        }
+    });
+  }
+
 
 
   // функция setEventListeners добавляет слушатель событий всем полям inputElement и запускает toggleButtonState кнопкам
